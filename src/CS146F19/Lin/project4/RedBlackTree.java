@@ -107,18 +107,24 @@ public class RedBlackTree<Key extends Comparable<Key>> {
 
     public RedBlackTree.Node<String> lookup(String k) {
         boolean found = false;
+        RedBlackTree.Node<String> foundNode = null;
         RedBlackTree.Node<String> currentNode = root;
         while (!found) {
-            int comparisonNumber = root.key.compareTo(k);
+            // If we reached the very end of the Red Black Tree
+            if (currentNode == null) {
+                break;
+            }
+            int comparisonNumber = currentNode.key.compareTo(k);
             if (comparisonNumber == 0) {
                 found = true;
+                foundNode = currentNode;
             } else if (comparisonNumber > 0) {
                 currentNode = currentNode.leftChild;
             } else {
                 currentNode = currentNode.rightChild;
             }
         }
-        return currentNode;
+        return foundNode;
     }
 
 

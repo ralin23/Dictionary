@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import java.util.*;
+
 
 public class RBTTester {
 
@@ -36,7 +38,36 @@ public class RBTTester {
 
     }
 
-    //add tester for spell checker
+    @Test
+    //Test the spell check
+    public void spellCheckTest() {
+        FileRead fileReader = new FileRead();
+        RedBlackTree dictionary = fileReader.readDictionaryFile("dictonary/dictionary.txt");
+        List<String> wordsInput = new ArrayList<>();
+        wordsInput.add("hello");
+        wordsInput.add("hellishly");
+        wordsInput.add("zzzzzzzzzzz");
+        wordsInput.add("zywiel");
+        List<String> wordsNotFound = new ArrayList<>();
+        for (String x : wordsInput) {
+            RedBlackTree.Node node = dictionary.lookup(x);
+            if (node == null) {
+                wordsNotFound.add(x);
+            }
+        }
+        List<String> wordsNotFoundExpected = new ArrayList<>();
+        wordsNotFoundExpected.add("zzzzzzzzzzz");
+        assertEquals(wordsNotFoundExpected, wordsNotFound);
+        /*List<String> wordsInput = fileReader.readInput("sampleInputs/poem1.txt");
+        List<String> wordsNotFound = new ArrayList<>();
+        for(String x: wordsInput) {
+            RedBlackTree.Node node = dictionary.lookup(x);
+            if(node == null) {
+                wordsNotFound.add(x);
+            }
+        }*/
+
+    }
 
     public static String makeString(RedBlackTree t) {
         class MyVisitor implements RedBlackTree.Visitor {
@@ -58,9 +89,14 @@ public class RBTTester {
             String result = "";
 
             public void visit(RedBlackTree.Node n) {
-                if (!(n.key).equals(""))
-                    result = result + "Color: " + n.color + ", Key:" + n.key + " Parent: " + n.parent.key + "\n";
+                if (!(n.key).equals("")) {
+                    String parentKey = "";
+                    if (n.parent != null) {
+                        parentKey = n.parent.key.toString();
+                    }
 
+                    result = result + "Color: " + n.color + ", Key:" + n.key + " Parent: " + parentKey + "\n";
+                }
             }
         }
 
