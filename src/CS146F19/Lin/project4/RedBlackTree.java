@@ -1,7 +1,7 @@
 package CS146F19.Lin.project4;
 
 public class RedBlackTree<Key extends Comparable<Key>> {
-    private RedBlackTree.Node<String> root;
+    private static RedBlackTree.Node<String> root;
 
     public static class Node<Key extends Comparable<Key>> { //changed to static
 
@@ -70,8 +70,35 @@ public class RedBlackTree<Key extends Comparable<Key>> {
 
     // place a new node in the RB tree with data the parameter and color it red.
     public void addNode(String data) {    //this < that  <0.  this > that  >0
-        //	fill
-
+        RedBlackTree.Node<String> newNode = new RedBlackTree.Node<>(data);
+        setNodeColor(newNode, "red");
+        RedBlackTree.Node<String> currentNode = root;
+        if (root == null) {
+            root = newNode;
+            fixTree(root);
+        } else {
+            RedBlackTree.Node<String> currentParentNode = currentNode.parent;
+            boolean setLeftChild = true;
+            while (currentNode != null) {
+                if (currentNode.compareTo(newNode) > 0) {
+                    currentParentNode = currentNode;
+                    currentNode = currentNode.leftChild;
+                    setLeftChild = true;
+                } else {
+                    currentParentNode = currentNode;
+                    currentNode = currentNode.rightChild;
+                    setLeftChild = false;
+                }
+            }
+            if (setLeftChild) {
+                currentParentNode.leftChild = newNode;
+                newNode.parent = currentParentNode;
+            } else {
+                currentParentNode.rightChild = newNode;
+                newNode.parent = currentParentNode;
+            }
+            fixTree(newNode);
+        }
     }
 
     public void insert(String data) {
@@ -79,17 +106,32 @@ public class RedBlackTree<Key extends Comparable<Key>> {
     }
 
     public RedBlackTree.Node<String> lookup(String k) {
-        //fill
+        boolean found = false;
+        RedBlackTree.Node<String> currentNode = root;
+        while (!found) {
+            int comparisonNumber = root.key.compareTo(k);
+            if (comparisonNumber == 0) {
+                found = true;
+            } else if (comparisonNumber > 0) {
+                currentNode = currentNode.leftChild;
+            } else {
+                currentNode = currentNode.rightChild;
+            }
+        }
+        return currentNode;
     }
 
 
     public RedBlackTree.Node<String> getSibling(RedBlackTree.Node<String> n) {
-        //
+        if (isLeftChild(n.parent, n)) {
+            return n.parent.rightChild;
+        }
+        return n.parent.leftChild;
     }
 
 
     public RedBlackTree.Node<String> getAunt(RedBlackTree.Node<String> n) {
-        //
+        return getSibling(n.parent);
     }
 
     public RedBlackTree.Node<String> getGrandparent(RedBlackTree.Node<String> n) {
@@ -97,15 +139,100 @@ public class RedBlackTree<Key extends Comparable<Key>> {
     }
 
     public void rotateLeft(RedBlackTree.Node<String> n) {
-        //
+        RedBlackTree.Node<String> y = n.rightChild;
+        n.rightChild = y.leftChild;
+        if (y.leftChild != null) {
+            y.leftChild.parent = n;
+        }
+        y.parent = n.parent;
+        if (n.parent == null) {
+            root = y;
+        } else if (n == n.parent.leftChild) {
+            n.parent.leftChild = y;
+        } else {
+            n.parent.rightChild = y;
+        }
+        y.leftChild = n;
+        n.parent = y;
     }
 
     public void rotateRight(RedBlackTree.Node<String> n) {
-        //
+        RedBlackTree.Node<String> x = n.leftChild;
+        n.leftChild = x.rightChild;
+        if (x.rightChild != null) {
+            x.rightChild.parent = n;
+        }
+        x.parent = n.parent;
+        if (n.parent == null) {
+            root = x;
+        } else if (n == n.parent.rightChild) {
+            n.parent.rightChild = x;
+        } else {
+            n.parent.leftChild = x;
+        }
+        x.rightChild = n;
+        n.parent = x;
     }
 
     public void fixTree(RedBlackTree.Node<String> current) {
-        //
+        // First case
+        if (current.compareTo(root) == 0) {
+            setNodeColor(current, "black");
+        }
+        // Second case
+        else if (!current.parent.isRed) {
+            // do nothing
+        }
+        // Third case
+        else if (current.isRed && current.parent.isRed) {
+            RedBlackTree.Node<String> grandParent = getGrandparent(current);
+            RedBlackTree.Node<String> originalParent = current.parent;
+            RedBlackTree.Node<String> aunt = getAunt(current);
+            // First major case
+            if (aunt == null || !aunt.isRed) {
+                if (isLeftChild(grandParent, originalParent)) {
+                    // Sub case C
+                    if (isLeftChild(originalParent, current)) {
+                        setNodeColor(originalParent, "black");
+                        setNodeColor(grandParent, "red");
+                        rotateRight(grandParent);
+                    }
+                    // Sub case A
+                    else {
+                        rotateLeft(originalParent);
+                        fixTree(originalParent);
+                    }
+                } else {
+                    // Sub case B
+                    if (isLeftChild(originalParent, current)) {
+                        rotateRight(originalParent);
+                        fixTree(originalParent);
+                    }
+                    // Sub case D
+                    else {
+                        setNodeColor(originalParent, "black");
+                        setNodeColor(grandParent, "red");
+                        rotateLeft(grandParent);
+                    }
+                }
+            } else {
+                setNodeColor(originalParent, "black");
+                setNodeColor(aunt, "black");
+                setNodeColor(grandParent, "red");
+                fixTree(grandParent);
+            }
+        }
+    }
+
+    public void setNodeColor(RedBlackTree.Node<String> n, String color) {
+        color = color.toLowerCase();
+        if (color.compareTo("red") == 0) {
+            n.isRed = true;
+            n.color = 0;
+        } else {
+            n.isRed = false;
+            n.color = 1;
+        }
     }
 
     public boolean isEmpty(RedBlackTree.Node<String> n) {

@@ -53,21 +53,21 @@ public class RBTTester {
     }
 
     public static String makeStringDetails(RedBlackTree t) {
-        {
-            class MyVisitor implements RedBlackTree.Visitor {
-                String result = "";
 
-                public void visit(RedBlackTree.Node n) {
-                    if (!(n.key).equals(""))
-                        result = result + "Color: " + n.color + ", Key:" + n.key + " Parent: " + n.parent.key + "\n";
+        class MyVisitor implements RedBlackTree.Visitor {
+            String result = "";
 
-                }
+            public void visit(RedBlackTree.Node n) {
+                if (!(n.key).equals(""))
+                    result = result + "Color: " + n.color + ", Key:" + n.key + " Parent: " + n.parent.key + "\n";
+
             }
-            ;
-            MyVisitor v = new MyVisitor();
-            t.preOrderVisit(v);
-            return v.result;
         }
+
+        MyVisitor v = new MyVisitor();
+        t.preOrderVisit(v);
+        return v.result;
+
     }
     // add this in your class
     //  public static interface Visitor
