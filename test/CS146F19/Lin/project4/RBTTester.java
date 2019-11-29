@@ -12,7 +12,7 @@ public class RBTTester {
     @Test
     //Test the Red Black Tree
     public void test() {
-        RedBlackTree rbt = new RedBlackTree();
+        RedBlackTree<String> rbt = new RedBlackTree<>();
         rbt.insert("D");
         rbt.insert("B");
         rbt.insert("A");
@@ -42,57 +42,69 @@ public class RBTTester {
     //Test the spell check
     public void spellCheckTest() {
         FileRead fileReader = new FileRead();
-        RedBlackTree dictionary = fileReader.readDictionaryFile("dictonary/dictionary.txt");
-        List<String> wordsInput = new ArrayList<>();
-        wordsInput.add("hello");
-        wordsInput.add("hellishly");
-        wordsInput.add("zzzzzzzzzzz");
-        wordsInput.add("zywiel");
-        List<String> wordsNotFound = new ArrayList<>();
-        for (String x : wordsInput) {
-            RedBlackTree.Node node = dictionary.lookup(x);
+        RedBlackTree<String> dictionary = fileReader.readDictionaryFile("dictonary/dictionary.txt");
+        List<String> wordsInput1 = new ArrayList<>();
+        wordsInput1.add("hello");
+        wordsInput1.add("hellishly");
+        wordsInput1.add("zzzzzzzzzzz");
+        wordsInput1.add("zywiel");
+        List<String> wordsNotFound1 = new ArrayList<>();
+        for (String x : wordsInput1) {
+            RedBlackTree.Node<String> node = dictionary.lookup(x);
             if (node == null) {
-                wordsNotFound.add(x);
+                wordsNotFound1.add(x);
             }
         }
-        List<String> wordsNotFoundExpected = new ArrayList<>();
-        wordsNotFoundExpected.add("zzzzzzzzzzz");
-        assertEquals(wordsNotFoundExpected, wordsNotFound);
-        /*List<String> wordsInput = fileReader.readInput("sampleInputs/poem1.txt");
-        List<String> wordsNotFound = new ArrayList<>();
-        for(String x: wordsInput) {
-            RedBlackTree.Node node = dictionary.lookup(x);
-            if(node == null) {
-                wordsNotFound.add(x);
-            }
-        }*/
+        List<String> wordsNotFoundExpected1 = new ArrayList<>();
+        wordsNotFoundExpected1.add("zzzzzzzzzzz");
+        assertEquals(wordsNotFoundExpected1, wordsNotFound1);
 
+        List<String> wordsInput2 = fileReader.readInput("sampleInputs/input1.txt");
+        List<String> wordsNotFound2 = new ArrayList<>();
+        for (String x : wordsInput2) {
+            RedBlackTree.Node<String> node = dictionary.lookup(x);
+            if (node == null) {
+                wordsNotFound2.add(x);
+                System.out.println(x);
+            }
+        }
+        String[] wordsNotFoundExpected2 = {
+                "now", "i", "can’t", "get", "the", "who’s", "for", "me", "by", "the", "in",
+                "or", "the", "be", "the", "in", "selforgans", "i", "ask", "as", "me", "it’s",
+                "for", "a", "as", "if", "i’m", "not", "the", "one", "on", "don’t", "of",
+                "as", "you", "eye", "me", "the", "at", "i", "to", "the", "as", "of", "as",
+                "the", "now", "docile", "and", "so", "too", "for", "the", "quasi", "a", "hair’s",
+                "we", "had", "and", "my", "we", "be", "of", "i", "to", "of", "my", "out",
+                "and", "in", "everyone’s", "to", "her", "own", "of", "there’s", "the", "gettoknowyou",
+                "we", "no", "for", "we", "and", "knowyou", "if", "you", "had", "to", "the",
+                "in", "you", "of", "a", "halffrozen", "by", "the", "i", "my", "i", "the"
+        };
+        assertEquals(Arrays.asList(wordsNotFoundExpected2), wordsNotFound2);
     }
 
-    public static String makeString(RedBlackTree t) {
-        class MyVisitor implements RedBlackTree.Visitor {
+    public static String makeString(RedBlackTree<String> t) {
+        class MyVisitor implements RedBlackTree.Visitor<String> {
             String result = "";
 
-            public void visit(RedBlackTree.Node n) {
+            public void visit(RedBlackTree.Node<String> n) {
                 result = result + n.key;
             }
         }
-        ;
         MyVisitor v = new MyVisitor();
         t.preOrderVisit(v);
         return v.result;
     }
 
-    public static String makeStringDetails(RedBlackTree t) {
+    public static String makeStringDetails(RedBlackTree<String> t) {
 
-        class MyVisitor implements RedBlackTree.Visitor {
+        class MyVisitor implements RedBlackTree.Visitor<String> {
             String result = "";
 
-            public void visit(RedBlackTree.Node n) {
+            public void visit(RedBlackTree.Node<String> n) {
                 if (!(n.key).equals("")) {
                     String parentKey = "";
                     if (n.parent != null) {
-                        parentKey = n.parent.key.toString();
+                        parentKey = n.parent.key;
                     }
 
                     result = result + "Color: " + n.color + ", Key:" + n.key + " Parent: " + parentKey + "\n";

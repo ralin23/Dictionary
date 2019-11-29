@@ -4,8 +4,8 @@ import java.io.*;
 import java.util.*;
 
 public class FileRead {
-    public RedBlackTree readDictionaryFile(String fileName) {
-        RedBlackTree dictionary = new RedBlackTree();
+    public RedBlackTree<String> readDictionaryFile(String fileName) {
+        RedBlackTree<String> dictionary = new RedBlackTree<>();
         File dictionaryFile = new File(fileName);
         List<String> dictionaryData = readFile(dictionaryFile);
         for (String data : dictionaryData) {
@@ -19,8 +19,14 @@ public class FileRead {
         File inputFile = new File(fileName);
         List<String> inputData = readFile(inputFile);
         for (String data : inputData) {
-            String[] wordArray = data.split(" ");
-            words.addAll(Arrays.asList(wordArray));
+            // If the line is empty "", skip it
+            if (!data.isEmpty()) {
+                // If the line has punctuation, replace it with "", lowercase everything, and split at spaces
+                // "\\p{Punct}" allows the system to control removal of punctuation characters
+                // "\\p{Blank}" allows the system to control removal of space and tab characters
+                String[] wordArray = data.replaceAll("\\p{Punct}", "").toLowerCase().split("\\p{Blank}");
+                words.addAll(Arrays.asList(wordArray));
+            }
         }
         return words;
     }
