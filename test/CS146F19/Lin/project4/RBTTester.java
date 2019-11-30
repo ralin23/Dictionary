@@ -35,7 +35,6 @@ public class RBTTester {
                 "Color: 1, Key:I Parent: H\n" +
                 "Color: 0, Key:J Parent: I\n";
         assertEquals(str, makeStringDetails(rbt));
-
     }
 
     @Test
@@ -43,31 +42,19 @@ public class RBTTester {
     public void spellCheckTest() {
         FileRead fileReader = new FileRead();
         RedBlackTree<String> dictionary = fileReader.readDictionaryFile("dictonary/dictionary.txt");
+        SpellCheck spellCheck = new SpellCheck();
         List<String> wordsInput1 = new ArrayList<>();
         wordsInput1.add("hello");
         wordsInput1.add("hellishly");
         wordsInput1.add("zzzzzzzzzzz");
         wordsInput1.add("zywiel");
-        List<String> wordsNotFound1 = new ArrayList<>();
-        for (String x : wordsInput1) {
-            RedBlackTree.Node<String> node = dictionary.lookup(x);
-            if (node == null) {
-                wordsNotFound1.add(x);
-            }
-        }
+        List<String> wordsNotFound1 = spellCheck.spellCheck(dictionary, wordsInput1);
         List<String> wordsNotFoundExpected1 = new ArrayList<>();
         wordsNotFoundExpected1.add("zzzzzzzzzzz");
         assertEquals(wordsNotFoundExpected1, wordsNotFound1);
 
         List<String> wordsInput2 = fileReader.readInput("sampleInputs/input1.txt");
-        List<String> wordsNotFound2 = new ArrayList<>();
-        for (String x : wordsInput2) {
-            RedBlackTree.Node<String> node = dictionary.lookup(x);
-            if (node == null) {
-                wordsNotFound2.add(x);
-                System.out.println(x);
-            }
-        }
+        List<String> wordsNotFound2 = spellCheck.spellCheck(dictionary, wordsInput2);
         String[] wordsNotFoundExpected2 = {
                 "now", "i", "can’t", "get", "the", "who’s", "for", "me", "by", "the", "in",
                 "or", "the", "be", "the", "in", "selforgans", "i", "ask", "as", "me", "it’s",
