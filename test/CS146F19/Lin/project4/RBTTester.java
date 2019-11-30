@@ -10,7 +10,7 @@ public class RBTTester {
     @Test
     //Test the Red Black Tree
     public void test() {
-        RedBlackTree rbt = new RedBlackTree();
+        RedBlackTree<String> rbt = new RedBlackTree<>();
         rbt.insert("D");
         rbt.insert("B");
         rbt.insert("A");
@@ -38,33 +38,33 @@ public class RBTTester {
 
     //add tester for spell checker
 
-    public static String makeString(RedBlackTree t) {
-        class MyVisitor implements RedBlackTree.Visitor {
+    public static String makeString(RedBlackTree<String> t) {
+        class MyVisitor<Key extends Comparable<Key>> implements Visitor<Key> {
             String result = "";
 
-            public void visit(RedBlackTree.Node n) {
-                result = result + n.key;
+            public void visit(Node<Key> n) {
+                result = result + n.getKey();
             }
         }
         ;
-        MyVisitor v = new MyVisitor();
+        MyVisitor<String> v = new MyVisitor<>();
         t.preOrderVisit(v);
         return v.result;
     }
 
-    public static String makeStringDetails(RedBlackTree t) {
+    public static String makeStringDetails(RedBlackTree<String> t) {
         {
-            class MyVisitor implements RedBlackTree.Visitor {
+            class MyVisitor<Key extends Comparable<Key>> implements Visitor<Key> {
                 String result = "";
 
-                public void visit(RedBlackTree.Node n) {
-                    if (!(n.key).equals(""))
-                        result = result + "Color: " + n.color + ", Key:" + n.key + " Parent: " + n.parent.key + "\n";
+                public void visit(Node<Key> n) {
+                    if (!(n.getKey()).equals(""))
+                        result = result + "Color: " + n.getColor() + ", Key:" + n.getKey() + " Parent: " + n.getParent().getKey() + "\n";
 
                 }
             }
             ;
-            MyVisitor v = new MyVisitor();
+            MyVisitor<String> v = new MyVisitor<>();
             t.preOrderVisit(v);
             return v.result;
         }
