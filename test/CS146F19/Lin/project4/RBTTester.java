@@ -46,7 +46,6 @@ public class RBTTester {
                 result = result + n.getKey();
             }
         }
-        ;
         MyVisitor<String> v = new MyVisitor<>();
         t.preOrderVisit(v);
         return v.result;
@@ -58,9 +57,13 @@ public class RBTTester {
                 String result = "";
 
                 public void visit(Node<Key> n) {
-                    if (!(n.getKey()).equals(""))
-                        result = result + "Color: " + n.getColor() + ", Key:" + n.getKey() + " Parent: " + n.getParent().getKey() + "\n";
-
+                    if (!(n.getKey()).equals("")) {
+                        String parentKey = "";
+                        if (n.getParent() != null) {
+                            parentKey = n.getParent().getKey().toString();
+                        }
+                        result = result + "Color: " + n.getColor() + ", Key:" + n.getKey() + " Parent: " + parentKey + "\n";
+                    }
                 }
             }
             ;

@@ -1,5 +1,7 @@
 package CS146F19.Lin.project4;
 
+import java.awt.Color;
+
 public class Node<Key extends Comparable<Key>> { //changed to static
 
     private Key key;
@@ -7,26 +9,17 @@ public class Node<Key extends Comparable<Key>> { //changed to static
     private Node<Key> leftChild;
     private Node<Key> rightChild;
     private boolean isRed;
-    private int color;
+    private Color color;
 
     public Node(Key data) {
         this.key = data;
-        leftChild = null;
-        rightChild = null;
+        this.leftChild = null;
+        this.rightChild = null;
     }
 
     public int compareTo(Node<Key> n) {    //this < that  <0
         return key.compareTo(n.key);    //this > that  >0
     }
-
-    /*public boolean isLeaf() {
-        if (this.equals(root) && this.leftChild == null && this.rightChild == null) return true;
-        if (this.equals(root)) return false;
-        if (this.leftChild == null && this.rightChild == null) {
-            return true;
-        }
-        return false;
-    }*/
 
     public Key getKey() {
         return key;
@@ -49,7 +42,10 @@ public class Node<Key extends Comparable<Key>> { //changed to static
     }
 
     public int getColor() {
-        return color;
+        if (color == Color.RED) {
+            return 0;
+        }
+        return 1;
     }
 
     public void setParent(Node<Key> parent) {
@@ -64,9 +60,14 @@ public class Node<Key extends Comparable<Key>> { //changed to static
         this.rightChild = rightChild;
     }
 
-    public void setColor(boolean red, int color) {
-        this.isRed = red;
-        this.color = color;
+    public void setColor(String color) {
+        if (color.toLowerCase().compareTo("red") == 0) {
+            this.isRed = true;
+            this.color = Color.RED;
+        } else {
+            this.isRed = false;
+            this.color = Color.BLACK;
+        }
     }
 
 }
