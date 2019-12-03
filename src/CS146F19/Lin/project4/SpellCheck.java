@@ -18,7 +18,7 @@ public class SpellCheck {
         SpellCheck spellCheck = new SpellCheck();
         FileRead fileReader = new FileRead();
         long startDictionaryCreation = System.nanoTime();
-        RedBlackTree<String> dictionary = fileReader.readDictionaryFile("dictonary/dictionary.txt");
+        RedBlackTree<String> dictionary = fileReader.readDictionaryFile("dictionary/dictionary.txt");
         long endDictionaryCreation = System.nanoTime();
         System.out.println("Created dictionary in: " + (endDictionaryCreation - startDictionaryCreation) + " nanoseconds.");
         List<String> wordsInput1 = fileReader.readInput("sampleInputs/input1.txt");

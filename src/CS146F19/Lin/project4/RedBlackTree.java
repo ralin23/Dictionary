@@ -6,10 +6,7 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
     public boolean isLeaf(Node<Key> n) {
         if (n.equals(root) && n.getLeftChild() == null && n.getRightChild() == null) return true;
         if (n.equals(root)) return false;
-        if (n.getLeftChild() == null && n.getRightChild() == null) {
-            return true;
-        }
-        return false;
+        return n.getLeftChild() == null && n.getRightChild() == null;
     }
 
     public void visit(Node<Key> n) {
@@ -57,11 +54,10 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
             }
             if (setLeftChild) {
                 currentParentNode.setLeftChild(newNode);
-                newNode.setParent(currentParentNode);
             } else {
                 currentParentNode.setRightChild(newNode);
-                newNode.setParent(currentParentNode);
             }
+            newNode.setParent(currentParentNode);
             fixTree(newNode);
         }
     }
