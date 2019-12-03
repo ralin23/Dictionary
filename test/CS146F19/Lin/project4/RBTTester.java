@@ -36,7 +36,11 @@ public class RBTTester {
 
     }
 
-    //add tester for spell checker
+    @Test
+    //Test Spell Check
+    public void spellCheckTest() {
+
+    }
 
     public static String makeString(RedBlackTree<String> t) {
         class MyVisitor<Key extends Comparable<Key>> implements Visitor<Key> {
@@ -66,7 +70,6 @@ public class RBTTester {
                     }
                 }
             }
-            ;
             MyVisitor<String> v = new MyVisitor<>();
             t.preOrderVisit(v);
             return v.result;

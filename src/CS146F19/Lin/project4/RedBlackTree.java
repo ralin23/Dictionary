@@ -22,6 +22,9 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
     }
 
     public void printTree(Node<Key> node) {
+        if (isEmpty(node)) {
+            return;
+        }
         System.out.print(node.getKey());
         if (isLeaf(node)) {
             return;
@@ -35,7 +38,7 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
         Node<Key> newNode = new Node<>(data);
         newNode.setColor("red");
         Node<Key> currentNode = root;
-        if (root == null) {
+        if (isEmpty(root)) {
             root = newNode;
             fixTree(root);
         } else {
@@ -193,17 +196,12 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
     }
 
     public boolean isEmpty(Node<Key> n) {
-        if (n.getKey() == null) {
-            return true;
-        }
-        return false;
+        return n == null;
     }
 
     public boolean isLeftChild(Node<Key> parent, Node<Key> child) {
-        if (child.compareTo(parent) < 0) {//child is less than parent
-            return true;
-        }
-        return false;
+        //child is less than parent
+        return child.compareTo(parent) < 0;
     }
 
     public void preOrderVisit(Visitor<Key> v) {
