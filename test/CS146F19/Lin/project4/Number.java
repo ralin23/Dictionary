@@ -33,6 +33,6 @@ public class Number implements Comparable<Number> {
      */
     @Override
     public String toString() {
-        return "Number: " + number + System.lineSeparator();
+        return "Number: " + number;
     }
 }

@@ -44,7 +44,7 @@ public class RBTTester {
     //Test Spell Check
     public void spellCheckTest() {
         FileRead fileReader = new FileRead();
-        RedBlackTree<String> dictionary = fileReader.readDictionaryFile("dictonary/dictionary.txt");
+        RedBlackTree<String> dictionary = fileReader.readDictionaryFile("dictionary/dictionary.txt");
         System.out.println("Start Spell Check for Small Sample (4 words): ");
         SpellCheck spellCheck = new SpellCheck();
         List<String> wordsInput1 = new ArrayList<>();
@@ -87,7 +87,15 @@ public class RBTTester {
         numbersRedBlackTree.addNode(new Number(1000));
         numbersRedBlackTree.addNode(new Number(500));
         numbersRedBlackTree.addNode(new Number(250));
-        numbersRedBlackTree.printTree();
+        String str = "Number: 20\n" +
+                "Number: 100\n" +
+                "Number: 500\n" +
+                "Number: 1000\n" +
+                "Number: 250\n" +
+                "Number: 50\n" +
+                "Number: 9\n" +
+                "Number: 1\n";
+        assertEquals(str, makeNumberDetails(numbersRedBlackTree));
     }
 
     public static String makeString(RedBlackTree<String> t) {
@@ -104,24 +112,37 @@ public class RBTTester {
     }
 
     public static String makeStringDetails(RedBlackTree<String> t) {
-        {
-            class MyVisitor<Key extends Comparable<Key>> implements Visitor<Key> {
-                String result = "";
+        class MyVisitor<Key extends Comparable<Key>> implements Visitor<Key> {
+            String result = "";
 
-                public void visit(Node<Key> n) {
-                    if (!(n.getKey()).equals("")) {
-                        String parentKey = "";
-                        if (n.getParent() != null) {
-                            parentKey = n.getParent().getKey().toString();
-                        }
-                        result = result + "Color: " + n.getColor() + ", Key:" + n.getKey() + " Parent: " + parentKey + "\n";
+            public void visit(Node<Key> n) {
+                if (!(n.getKey()).equals("")) {
+                    String parentKey = "";
+                    if (n.getParent() != null) {
+                        parentKey = n.getParent().getKey().toString();
                     }
+                    result = result + "Color: " + n.getColor() + ", Key:" + n.getKey() + " Parent: " + parentKey + "\n";
                 }
             }
-            MyVisitor<String> v = new MyVisitor<>();
-            t.preOrderVisit(v);
-            return v.result;
         }
+        MyVisitor<String> v = new MyVisitor<>();
+        t.preOrderVisit(v);
+        return v.result;
+    }
+
+    public static String makeNumberDetails(RedBlackTree<Number> t) {
+        class MyVisitor<Key extends Comparable<Key>> implements Visitor<Key> {
+            String result = "";
+
+            public void visit(Node<Key> n) {
+                if (!(n.getKey()).equals("")) {
+                    result = result + n.getKey().toString() + "\n";
+                }
+            }
+        }
+        MyVisitor<Number> v = new MyVisitor<>();
+        t.preOrderVisit(v);
+        return v.result;
     }
     // add this in your class
     //  public static interface Visitor

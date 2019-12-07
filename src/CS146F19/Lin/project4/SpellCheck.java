@@ -3,6 +3,13 @@ package CS146F19.Lin.project4;
 import java.util.*;
 
 public class SpellCheck {
+    /**
+     * Checks words in a supplied dictionary
+     *
+     * @param dictionary the dictionary to use
+     * @param wordsInput an array of words to check against the dictionary
+     * @return an array of words not found in the dictionary
+     */
     public List<String> spellCheck(RedBlackTree<String> dictionary, List<String> wordsInput) {
         List<String> wordsNotFound = new ArrayList<>();
         long startSpellCheck1 = System.nanoTime();

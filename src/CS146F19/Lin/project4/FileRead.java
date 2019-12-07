@@ -3,7 +3,16 @@ package CS146F19.Lin.project4;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Helps process text files into strings
+ */
 public class FileRead {
+    /**
+     * Creates a dictionary from a file using specified file name
+     *
+     * @param fileName a String containing the file name or path to file
+     * @return Red Black Tree ready to look up words
+     */
     public RedBlackTree<String> readDictionaryFile(String fileName) {
         RedBlackTree<String> dictionary = new RedBlackTree<>();
         File dictionaryFile = new File(fileName);
@@ -17,6 +26,12 @@ public class FileRead {
         return dictionary;
     }
 
+    /**
+     * Processes a text file containing words and sentences into an array ready for looking up words in a dictionary.
+     *
+     * @param fileName a String containing the file name or path to file
+     * @return an array of words ready to be looked up in a dictionary
+     */
     public List<String> readInput(String fileName) {
         List<String> words = new ArrayList<>();
         File inputFile = new File(fileName);
@@ -34,6 +49,12 @@ public class FileRead {
         return words;
     }
 
+    /**
+     * Begin to read a file using a provided file
+     *
+     * @param file a File to read off of
+     * @return an array of strings
+     */
     private List<String> readFile(File file) {
         List<String> stringArray = new ArrayList<>();
         BufferedReader br;

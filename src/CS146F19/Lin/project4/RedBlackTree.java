@@ -1,28 +1,49 @@
 package CS146F19.Lin.project4;
 
+/**
+ * A generic Red Black Tree that does not use {@link java.util.Collection}
+ *
+ * @param <Key> generic data type for this node class which must implement {@literal Comparable<Key>}
+ */
 public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
     private Node<Key> root;
 
+    /**
+     * Checks if node is a leaf
+     * @param n node to check
+     * @return true if it is a leaf, otherwise false
+     */
     public boolean isLeaf(Node<Key> n) {
         if (n.equals(root) && n.getLeftChild() == null && n.getRightChild() == null) return true;
         if (n.equals(root)) return false;
         return n.getLeftChild() == null && n.getRightChild() == null;
     }
 
+    /**
+     * Prints out node's data upon visit
+     * @param n the visited node
+     */
     public void visit(Node<Key> n) {
         System.out.println(n.getKey());
     }
 
+    /**
+     * Prints the Red Black Tree in preorder visit mode
+     */
     public void printTree() {  //preorder: visit, go left, go right
         Node<Key> currentNode = root;
         printTree(currentNode);
     }
 
+    /**
+     * Helper function for {@link #printTree()}
+     * @param node node to visit
+     */
     public void printTree(Node<Key> node) {
         if (isEmpty(node)) {
             return;
         }
-        System.out.print(node.getKey());
+        visit(node);
         if (isLeaf(node)) {
             return;
         }
@@ -30,6 +51,10 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
         printTree(node.getRightChild());
     }
 
+    /**
+     * Adds new node to Red Black Tree
+     * @param data data for this new node to have when added to Red Black Tree
+     */
     // place a new node in the RB tree with data the parameter and color it red.
     public void addNode(Key data) {    //this < that  <0.  this > that  >0
         Node<Key> newNode = new Node<>(data);
@@ -62,10 +87,21 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
         }
     }
 
+    /**
+     * Inserts new data to Red Black Tree
+     *
+     * @param data data to be inserted to Red Black Tree
+     */
     public void insert(Key data) {
         addNode(data);
     }
 
+    /**
+     * Looks up node with provided generic data
+     *
+     * @param k generic data to look up
+     * @return a Node containing requested data
+     */
     public Node<Key> lookup(Key k) {
         boolean found = false;
         Node<Key> foundNode = null;
@@ -88,7 +124,12 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
         return foundNode;
     }
 
-
+    /**
+     * Gets the node's sibling
+     *
+     * @param n node to find sibling
+     * @return the node's sibling
+     */
     public Node<Key> getSibling(Node<Key> n) {
         if (isLeftChild(n.getParent(), n)) {
             return n.getParent().getRightChild();
@@ -96,15 +137,31 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
         return n.getParent().getLeftChild();
     }
 
-
+    /**
+     * Gets the node's aunt
+     *
+     * @param n a node to find aunt
+     * @return the node's aunt
+     */
     public Node<Key> getAunt(Node<Key> n) {
         return getSibling(n.getParent());
     }
 
+    /**
+     * Gets the node's grandparent
+     *
+     * @param n a node to find grandparent
+     * @return the node's grandparent
+     */
     public Node<Key> getGrandparent(Node<Key> n) {
         return n.getParent().getParent();
     }
 
+    /**
+     * Rotates part of the Red Black Tree to the left
+     *
+     * @param n teh node to rotate
+     */
     public void rotateLeft(Node<Key> n) {
         Node<Key> y = n.getRightChild();
         n.setRightChild(y.getLeftChild());
@@ -123,6 +180,11 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
         n.setParent(y);
     }
 
+    /**
+     * Rotates part of the Red Black Tree to the right
+     *
+     * @param n teh node to rotate
+     */
     public void rotateRight(Node<Key> n) {
         Node<Key> x = n.getLeftChild();
         n.setLeftChild(x.getRightChild());
@@ -141,6 +203,11 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
         n.setParent(x);
     }
 
+    /**
+     * Fixes the Red Black Tree
+     *
+     * @param current the node to correct
+     */
     public void fixTree(Node<Key> current) {
         // First case
         if (current.compareTo(root) == 0) {
@@ -191,19 +258,43 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
         }
     }
 
+    /**
+     * Check if node is empty
+     *
+     * @param n node to check
+     * @return true if empty, otherwise false
+     */
     public boolean isEmpty(Node<Key> n) {
         return n == null;
     }
 
+    /**
+     * Checks if node is a left child of another node
+     *
+     * @param parent the parent of a child
+     * @param child  the child to check
+     * @return true if child is the left child of parent
+     */
     public boolean isLeftChild(Node<Key> parent, Node<Key> child) {
         //child is less than parent
         return child.compareTo(parent) < 0;
     }
 
+    /**
+     * Visits the Red Black Tree in preorder mode
+     *
+     * @param v the Visitor interface to use
+     */
     public void preOrderVisit(Visitor<Key> v) {
         preOrderVisit(root, v);
     }
 
+    /**
+     * Visits each node in preorder mode
+     *
+     * @param n node to visit
+     * @param v the Visitor interface to use
+     */
     private void preOrderVisit(Node<Key> n, Visitor<Key> v) {
         if (n == null) {
             return;
