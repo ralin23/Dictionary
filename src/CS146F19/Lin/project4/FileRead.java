@@ -8,9 +8,12 @@ public class FileRead {
         RedBlackTree<String> dictionary = new RedBlackTree<>();
         File dictionaryFile = new File(fileName);
         List<String> dictionaryData = readFile(dictionaryFile);
+        long startDictionaryCreation = System.nanoTime();
         for (String data : dictionaryData) {
             dictionary.insert(data);
         }
+        long endDictionaryCreation = System.nanoTime();
+        System.out.println("Created dictionary in: " + (endDictionaryCreation - startDictionaryCreation) + " nanoseconds.");
         return dictionary;
     }
 

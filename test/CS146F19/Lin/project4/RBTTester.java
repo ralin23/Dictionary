@@ -4,11 +4,15 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import java.util.*;
 
+/**
+ * Tests the {@link RedBlackTree} using various tests
+ */
 public class RBTTester {
 
     @Test
-    //Test the Red Black Tree
+    //Test the Red Black Tree using Strings
     public void test() {
         RedBlackTree<String> rbt = new RedBlackTree<>();
         rbt.insert("D");
@@ -39,7 +43,51 @@ public class RBTTester {
     @Test
     //Test Spell Check
     public void spellCheckTest() {
+        FileRead fileReader = new FileRead();
+        RedBlackTree<String> dictionary = fileReader.readDictionaryFile("dictonary/dictionary.txt");
+        System.out.println("Start Spell Check for Small Sample (4 words): ");
+        SpellCheck spellCheck = new SpellCheck();
+        List<String> wordsInput1 = new ArrayList<>();
+        wordsInput1.add("hello");
+        wordsInput1.add("hellishly");
+        wordsInput1.add("zzzzzzzzzzz");
+        wordsInput1.add("zywiel");
+        List<String> wordsNotFound1 = spellCheck.spellCheck(dictionary, wordsInput1);
+        List<String> wordsNotFoundExpected1 = new ArrayList<>();
+        wordsNotFoundExpected1.add("zzzzzzzzzzz");
+        assertEquals(wordsNotFoundExpected1, wordsNotFound1);
+        System.out.println("OK.");
+        System.out.println("Start Spell Check for Sample Poem (sampleInputs/input.txt): ");
+        List<String> wordsInput2 = fileReader.readInput("sampleInputs/input1.txt");
+        List<String> wordsNotFound2 = spellCheck.spellCheck(dictionary, wordsInput2);
+        String[] wordsNotFoundExpected2 = {
+                "now", "i", "can’t", "get", "the", "who’s", "for", "me", "by", "the", "in",
+                "or", "the", "be", "the", "in", "selforgans", "i", "ask", "as", "me", "it’s",
+                "for", "a", "as", "if", "i’m", "not", "the", "one", "on", "don’t", "of",
+                "as", "you", "eye", "me", "the", "at", "i", "to", "the", "as", "of", "as",
+                "the", "now", "docile", "and", "so", "too", "for", "the", "quasi", "a", "hair’s",
+                "we", "had", "and", "my", "we", "be", "of", "i", "to", "of", "my", "out",
+                "and", "in", "everyone’s", "to", "her", "own", "of", "there’s", "the", "gettoknowyou",
+                "we", "no", "for", "we", "and", "knowyou", "if", "you", "had", "to", "the",
+                "in", "you", "of", "a", "halffrozen", "by", "the", "i", "my", "i", "the"
+        };
+        assertEquals(Arrays.asList(wordsNotFoundExpected2), wordsNotFound2);
+        System.out.println("OK.");
+    }
 
+    @Test
+    // Tests Red Black Tree using Number class
+    public void genericTest() {
+        RedBlackTree<Number> numbersRedBlackTree = new RedBlackTree<>();
+        numbersRedBlackTree.addNode(new Number(9));
+        numbersRedBlackTree.addNode(new Number(100));
+        numbersRedBlackTree.addNode(new Number(20));
+        numbersRedBlackTree.addNode(new Number(1));
+        numbersRedBlackTree.addNode(new Number(50));
+        numbersRedBlackTree.addNode(new Number(1000));
+        numbersRedBlackTree.addNode(new Number(500));
+        numbersRedBlackTree.addNode(new Number(250));
+        numbersRedBlackTree.printTree();
     }
 
     public static String makeString(RedBlackTree<String> t) {
