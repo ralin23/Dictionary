@@ -1,7 +1,7 @@
 package CS146F19.Lin.project4;
 
 /**
- * Sample Number class for use in {@link RBTTester#genericTest()}
+ * Sample Number class for use in {@link RBTTester#genericTest()}.
  */
 public class Number implements Comparable<Number> {
     private int number;

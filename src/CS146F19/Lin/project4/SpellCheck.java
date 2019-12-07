@@ -2,6 +2,9 @@ package CS146F19.Lin.project4;
 
 import java.util.*;
 
+/**
+ * This class provides spell check functionality for documents using a dictionary.
+ */
 public class SpellCheck {
     /**
      * Checks words in a supplied dictionary

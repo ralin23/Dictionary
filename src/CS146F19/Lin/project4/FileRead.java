@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Helps process text files into strings
+ * This class processes text files into strings.
  */
 public class FileRead {
     /**

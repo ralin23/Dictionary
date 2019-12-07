@@ -3,9 +3,9 @@ package CS146F19.Lin.project4;
 import java.awt.Color;
 
 /**
- * This class holds generic node data for {@link RedBlackTree}
+ * This class holds generic node data for {@link RedBlackTree Red-Black Tree}.
  *
- * @param <Key> generic data type for this node class which must implement {@literal Comparable<Key>}
+ * @param <Key> generic data type for this node class which must implement {@literal Comparable<Key>}.
  */
 public class Node<Key extends Comparable<Key>> { //changed to static
 

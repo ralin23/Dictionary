@@ -7,7 +7,7 @@ import org.junit.Test;
 import java.util.*;
 
 /**
- * Tests the {@link RedBlackTree} using various tests
+ * Tests the {@link RedBlackTree} using various tests.
  */
 public class RBTTester {
 

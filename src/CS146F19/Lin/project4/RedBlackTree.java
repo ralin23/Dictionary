@@ -1,9 +1,9 @@
 package CS146F19.Lin.project4;
 
 /**
- * A generic Red Black Tree that does not use {@link java.util.Collection, Collections}
+ * A generic Red-Black Tree that does not use {@link java.util.Collection Collections}.
  *
- * @param <Key> generic data type for this node class which must implement {@literal Comparable<Key>}
+ * @param <Key> generic data type for this node class which must implement {@literal Comparable<Key>}.
  */
 public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
     private Node<Key> root;
