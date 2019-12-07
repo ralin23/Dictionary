@@ -30,5 +30,9 @@ public class SpellCheck {
         RedBlackTree<String> dictionary = fileReader.readDictionaryFile("dictionary/dictionary.txt");
         List<String> wordsInput1 = fileReader.readInput("sampleInputs/input1.txt");
         List<String> wordsNotInDictionary1 = spellCheck.spellCheck(dictionary, wordsInput1);
+        System.out.println("Words not in the dictionary (includes repeats): ");
+        for (String x : wordsNotInDictionary1) {
+            System.out.println(x);
+        }
     }
 }

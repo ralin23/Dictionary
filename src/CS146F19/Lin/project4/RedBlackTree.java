@@ -1,7 +1,7 @@
 package CS146F19.Lin.project4;
 
 /**
- * A generic Red Black Tree that does not use {@link java.util.Collection}
+ * A generic Red Black Tree that does not use {@link java.util.Collection, Collections}
  *
  * @param <Key> generic data type for this node class which must implement {@literal Comparable<Key>}
  */
@@ -10,6 +10,7 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
 
     /**
      * Checks if node is a leaf
+     *
      * @param n node to check
      * @return true if it is a leaf, otherwise false
      */
@@ -21,6 +22,7 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
 
     /**
      * Prints out node's data upon visit
+     *
      * @param n the visited node
      */
     public void visit(Node<Key> n) {
@@ -37,6 +39,7 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
 
     /**
      * Helper function for {@link #printTree()}
+     *
      * @param node node to visit
      */
     public void printTree(Node<Key> node) {
@@ -53,6 +56,7 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
 
     /**
      * Adds new node to Red Black Tree
+     *
      * @param data data for this new node to have when added to Red Black Tree
      */
     // place a new node in the RB tree with data the parameter and color it red.
@@ -100,7 +104,7 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
      * Looks up node with provided generic data
      *
      * @param k generic data to look up
-     * @return a Node containing requested data
+     * @return a Node containing requested data, null if a Node containing requested data cannot be found
      */
     public Node<Key> lookup(Key k) {
         boolean found = false;
@@ -160,7 +164,7 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
     /**
      * Rotates part of the Red Black Tree to the left
      *
-     * @param n teh node to rotate
+     * @param n the node to rotate
      */
     public void rotateLeft(Node<Key> n) {
         Node<Key> y = n.getRightChild();
@@ -183,7 +187,7 @@ public class RedBlackTree<Key extends Comparable<Key>> implements Visitor<Key> {
     /**
      * Rotates part of the Red Black Tree to the right
      *
-     * @param n teh node to rotate
+     * @param n the node to rotate
      */
     public void rotateRight(Node<Key> n) {
         Node<Key> x = n.getLeftChild();
