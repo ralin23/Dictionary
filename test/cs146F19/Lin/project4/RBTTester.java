@@ -57,7 +57,7 @@ public class RBTTester {
         wordsNotFoundExpected1.add("zzzzzzzzzzz");
         assertEquals(wordsNotFoundExpected1, wordsNotFound1);
         System.out.println("OK.");
-        System.out.println("Start Spell Check for Sample Poem (sampleInputs/input.txt): ");
+        System.out.println("Start Spell Check for Sample Poem (sampleInputs/input1.txt): ");
         List<String> wordsInput2 = fileReader.readInput("sampleInputs/input1.txt");
         List<String> wordsNotFound2 = spellCheck.spellCheck(dictionary, wordsInput2);
         String[] wordsNotFoundExpected2 = {
