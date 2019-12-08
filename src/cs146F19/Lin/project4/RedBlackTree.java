@@ -1,4 +1,4 @@
-package CS146F19.Lin.project4;
+package cs146F19.Lin.project4;
 
 /**
  * A generic Red-Black Tree that does not use {@link java.util.Collection Collections}.

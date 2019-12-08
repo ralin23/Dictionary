@@ -1,4 +1,4 @@
-package CS146F19.Lin.project4;
+package cs146F19.Lin.project4;
 
 /**
  * Any graph that implements this interface needs to have visitable nodes.

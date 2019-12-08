@@ -1,4 +1,4 @@
-package CS146F19.Lin.project4;
+package cs146F19.Lin.project4;
 
 import static org.junit.Assert.*;
 
