@@ -57,19 +57,11 @@ public class RBTTester {
         wordsNotFoundExpected1.add("zzzzzzzzzzz");
         assertEquals(wordsNotFoundExpected1, wordsNotFound1);
         System.out.println("OK.");
-        System.out.println("Start Spell Check for Sample Poem (sampleInputs/input1.txt): ");
-        List<String> wordsInput2 = fileReader.readInput("sampleInputs/input1.txt");
+        System.out.println("Start Spell Check for Sample Poem (sampleInputs/input2.txt): ");
+        List<String> wordsInput2 = fileReader.readInput("sampleInputs/input2.txt");
         List<String> wordsNotFound2 = spellCheck.spellCheck(dictionary, wordsInput2);
         String[] wordsNotFoundExpected2 = {
-                "now", "i", "can’t", "get", "the", "who’s", "for", "me", "by", "the", "in",
-                "or", "the", "be", "the", "in", "selforgans", "i", "ask", "as", "me", "it’s",
-                "for", "a", "as", "if", "i’m", "not", "the", "one", "on", "don’t", "of",
-                "as", "you", "eye", "me", "the", "at", "i", "to", "the", "as", "of", "as",
-                "the", "now", "docile", "and", "so", "too", "for", "the", "quasi", "a", "hair’s",
-                "we", "had", "and", "my", "we", "be", "of", "i", "to", "of", "my", "out",
-                "and", "in", "everyone’s", "to", "her", "own", "of", "there’s", "the", "gettoknowyou",
-                "we", "no", "for", "we", "and", "knowyou", "if", "you", "had", "to", "the",
-                "in", "you", "of", "a", "halffrozen", "by", "the", "i", "my", "i", "the"
+        		"you", "fit", "me", "a", "an", "eye", "a", "an", "eye"
         };
         assertEquals(Arrays.asList(wordsNotFoundExpected2), wordsNotFound2);
         System.out.println("OK.");
